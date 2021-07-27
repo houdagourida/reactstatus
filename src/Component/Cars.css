@@ -1,0 +1,8 @@
+.image{
+    width:200px;
+    clip-path:ellipse(50% 50%);
+    
+  }
+  p{
+      color: blanchedalmond;
+  }
