@@ -1,33 +1,54 @@
-import  React, { Component } from 'react'
+import React, { Component } from 'react'
 
-class Count extends Component{
-    constructor(props){
-        super(props)
-        this.state= {
-            count: 0
-        }
-    }
-    render(){
-        const {count} = this.state
-        return(
+export class Counter extends Component {
+  constructor(props) {
+      console.log('constructor()')
+      super(props)
+  
+      this.state = {
+           count:0,
+           memory:null,
+      }
+  }
+  componentDidMount(){
+      console.log('componentDidMount');
+    //   setTimeout(() => {
+    //       this.setState({count :this.state.count + 10  });
+    //   }, 5000);
+    this.setState({memory : setInterval(() => {
+        this.setState({count :this.state.count + 1  });
+    }, 1000) });
+    
+  }
+  
+  componentDidUpdate(){
+      console.log('componentDidUpdate');
+     
+  }
+
+  componentWillUnmount(){
+      console.log('componentWillUnmount');
+      clearInterval(this.state.memory);
+  }
+  encrement=() => {
+    this.setState({ count: this.state.count +1  });
+  }
+  decrement=() => {
+      this.state.count>0 ? 
+    this.setState({  count: this.state.count -1   }): alert('yezzzzy')
+  }
+  
+    render() {
+        console.log('render()');
+        console.log(this.state.memory)
+        return (
             <div>
-                <h1>current count; {count}</h1>
+                <button onClick={this.encrement}> + </button>
+              <p> {this.state.count}  </p>
+              <button onClick={this.decrement}> - </button>  
             </div>
         )
-
-    }
-    componentDidMount(){
-        this.myInterval =setInterval (()=>{
-            this.setState(prevState =>({
-                count:prevState.count + 1
-            })) 
-         },1000)
-      
-   
-    }
-   
-    compponetWillUnmount(){
-        clearInterval(this.myInterval)
     }
 }
-export default Count
+
+export default Counter
